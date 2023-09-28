@@ -30,18 +30,20 @@ public class AuthenticationService {
 
   public AuthenticationResponse register(RegisterRequest request) {
     var user = User.builder()
-        .name(request.getName())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(request.getRole())
-        .build();
+            .firstname(request.getFirstname())
+            .lastname(request.getLastname())
+            .email(request.getEmail())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .role(request.getRole())
+            .build();
     var savedUser = repository.save(user);
     var jwtToken = jwtService.generateToken(user);
-//    var refreshToken = jwtService.generateRefreshToken(user);
+    var refreshToken = jwtService.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-//            .refreshToken(refreshToken)
-        .build();
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
+            .build();
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -65,7 +67,7 @@ public class AuthenticationService {
 
   private void saveUserToken(User user, String jwtToken) {
     var token = Token.builder()
-        .user(user)
+        .usuario(user)
         .token(jwtToken)
         .tokenType(TokenType.BEARER)
         .expired(false)

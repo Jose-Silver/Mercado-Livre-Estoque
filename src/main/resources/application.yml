@@ -7,7 +7,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -17,6 +17,9 @@ spring:
 
 
 application:
+  APP_ID: 2358645404637526
+  YOUR_URL: http://localhost:8082/stock
+  CLIENT_SECRET: zfLVWLtLJkJuefdI1TlM3xVSG5LYFg8E
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
@@ -24,4 +27,4 @@ application:
       refresh-token:
         expiration: 604800000 # 7 days
 server:
-  port: 8081
+  port: 8082
